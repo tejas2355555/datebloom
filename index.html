@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DateBloom 💗</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="brand">🌸 DateBloom 💗</div>
+<div class="heart" style="left:5%;animation-delay:0s">♡</div>
+<div class="heart" style="left:20%;animation-delay:2s">♥</div>
+<div class="heart" style="left:40%;animation-delay:4s">♡</div>
+<div class="heart" style="left:65%;animation-delay:1s">♥</div>
+<div class="heart" style="left:85%;animation-delay:3s">♡</div>
+
+<div class="card">
+<section class="step active" id="step0">
+<div class="envelope">💌</div><h1>Will you go on a date with me?</h1>
+<p class="subtitle">I have a little surprise planned for you 💗</p>
+<div class="button-row"><button class="primary-btn" onclick="yesClicked()">YES ♥</button><button class="no-btn" onclick="noClicked()">NO</button></div>
+<p class="footer-text">made with a little courage & lots of love ✨</p>
+</section>
+
+<section class="step" id="noScreen"><div class="big-icon">🥺</div><h1>Are you sure?</h1><p class="subtitle">It's completely okay to say no 💗</p><button class="primary-btn" onclick="backToQuestion()">Let me think again 🌸</button></section>
+
+<section class="step" id="yesScreen"><div class="big-icon">😭❤️</div><h1>WAIT...</h1><h2 style="margin-bottom:15px">You actually said YES?!</h2><p class="subtitle">I was so ready for you to say no 😂</p><button class="primary-btn" onclick="showNameScreen()">Okay okay! → 💕</button></section>
+
+<section class="step" id="nameScreen">
+<div class="big-icon">💑</div><h1>Let's make it a date!</h1><p class="subtitle">Who's going on this little adventure? 💗</p>
+<div class="form-group"><label>👤 First person's name</label><input type="text" id="name1Input" placeholder="Enter first name..." maxlength="30"></div>
+<div class="form-group"><label>👤 Second person's name</label><input type="text" id="name2Input" placeholder="Enter second name..." maxlength="30"></div>
+<div class="nav-buttons"><button class="next-btn" onclick="saveNames()">Continue → 💕</button></div>
+</section>
+
+<section class="step" id="step1">
+<div class="big-icon">📅</div><h1>Plan the date</h1><p class="subtitle">Pick a day and time 💗</p>
+<div class="form-group"><label>📅 Date</label><input type="date" id="dateInput"></div>
+<div class="form-group"><label>🕐 Time</label><input type="time" id="timeInput"></div>
+<div class="form-group"><label>📍 Where are you meeting? <span class="optional-label">(optional)</span></label><input type="text" id="placeInput" placeholder="Cafe, park, mall, restaurant..."></div>
+<div class="nav-buttons"><button class="back-btn" onclick="showNameScreen()">← Back</button><button class="next-btn" onclick="nextStep(2)">Next → 💕</button></div>
+</section>
+
+<section class="step" id="step2">
+<div class="big-icon">🍴</div><h1>What are we feeling?</h1><p class="subtitle">Pick what you want to eat — optional</p>
+<div class="choice-grid">
+<div class="choice" onclick="selectFood(this,'Pizza')">🍕<br>Pizza</div><div class="choice" onclick="selectFood(this,'Sushi')">🍣<br>Sushi</div>
+<div class="choice" onclick="selectFood(this,'Burgers')">🍔<br>Burgers</div><div class="choice" onclick="selectFood(this,'Pasta')">🍝<br>Pasta</div>
+<div class="choice" onclick="selectFood(this,'Tacos')">🌮<br>Tacos</div><div class="choice" onclick="selectFood(this,'Ramen')">🍜<br>Ramen</div>
+</div>
+<input type="text" id="customFood" placeholder="Other food (optional)">
+<div class="nav-buttons"><button class="back-btn" onclick="nextStep(1)">← Back</button><button class="next-btn" onclick="nextStep(3)">Next →</button></div>
+</section>
+
+<section class="step" id="step3">
+<div class="big-icon">✨</div><h1>What's the vibe?</h1><p class="subtitle">Pick the feeling for the date</p>
+<div class="choice-grid">
+<div class="choice" onclick="selectVibe(this,'Romantic')">🥰<br>Romantic</div><div class="choice" onclick="selectVibe(this,'Fun')">😂<br>Fun</div>
+<div class="choice" onclick="selectVibe(this,'Movie')">🎬<br>Movie</div><div class="choice" onclick="selectVibe(this,'Chill')">☕<br>Chill</div>
+<div class="choice" onclick="selectVibe(this,'Evening Walk')">🌆<br>Walk</div><div class="choice" onclick="selectVibe(this,'Surprise')">🎁<br>Surprise</div>
+</div>
+<div class="nav-buttons"><button class="back-btn" onclick="nextStep(2)">← Back</button><button class="next-btn" onclick="showSurprise()">Next → 🎁</button></div>
+</section>
+
+<section class="step" id="surpriseScreen">
+<div class="gift" onclick="openSurprise()">🎁</div><h1>One little surprise...</h1><p class="subtitle">Tap the gift 🎁</p>
+<div class="surprise-message" id="surpriseMessage">💗 A little date.<br>A little adventure.<br>A beautiful memory waiting to happen. 🌸<br><br>Just you two, your favorite place, and a little happiness. ✨</div>
+<div class="nav-buttons"><button class="back-btn" onclick="nextStep(3)">← Back</button><button class="next-btn" onclick="nextStep(4)">Review 💌</button></div>
+</section>
+
+<section class="step" id="step4">
+<div class="big-icon">💌</div><h1>It's almost a date!</h1><p class="subtitle">Check everything before confirming.</p>
+<div class="summary">
+<div class="summary-row">💑<strong>Couple:</strong><span id="summaryCouple">-</span></div>
+<div class="summary-row">📅<strong>Date:</strong><span id="summaryDate">-</span></div>
+<div class="summary-row">🕐<strong>Time:</strong><span id="summaryTime">-</span></div>
+<div class="summary-row">📍<strong>Meeting:</strong><span id="summaryPlace">Not specified</span></div>
+<div class="summary-row">🍕<strong>Food:</strong><span id="summaryFood">Not selected</span></div>
+<div class="summary-row">✨<strong>Vibe:</strong><span id="summaryVibe">Not selected</span></div>
+</div>
+<div class="nav-buttons"><button class="back-btn" onclick="nextStep(3)">← Back</button><button class="next-btn" onclick="confirmDate()">Confirm Date ❤️</button></div>
+</section>
+
+<section class="step" id="finalScreen">
+<div class="success">🎉</div><h1>It's a Date! ❤️</h1>
+<div class="couple-box"><div class="couple-names"><span class="person-name" id="finalName1">Name 1</span><span class="couple-heart">❤️</span><span class="person-name" id="finalName2">Name 2</span></div><p class="love-caption">Two names. One beautiful date. 💕</p></div>
+<p class="final-message">The date is officially planned! 🥰<br>Make it a beautiful memory together. 🌸</p>
+<div class="romantic-quote" id="romanticQuote">“Some moments become memories because they are shared with someone special.” 💗</div>
+<div class="summary">
+<div class="summary-row">📅<strong>Date:</strong><span id="finalDate"></span></div><div class="summary-row">🕐<strong>Time:</strong><span id="finalTime"></span></div>
+<div class="summary-row">📍<strong>Meeting:</strong><span id="finalPlace"></span></div><div class="summary-row">🍴<strong>Food:</strong><span id="finalFood"></span></div>
+<div class="summary-row">✨<strong>Vibe:</strong><span id="finalVibe"></span></div>
+</div>
+<h2>⏳ Countdown</h2>
+<div class="countdown"><div class="count-box"><strong id="days">0</strong><small>Days</small></div><div class="count-box"><strong id="hours">0</strong><small>Hours</small></div><div class="count-box"><strong id="minutes">0</strong><small>Minutes</small></div><div class="count-box"><strong id="seconds">0</strong><small>Seconds</small></div></div>
+<div class="share-area"><div class="share-title">📤 Share your DateBloom</div><p class="share-note important-share">💗 Share it with the friend who invited you on this date. 💗</p>
+<div class="share-buttons"><button class="share-btn" onclick="shareDate()">📤 Share Anywhere</button><button class="copy-btn" onclick="copyInvitation()">📋 Copy Invitation</button></div>
+<p class="share-note">Share it with WhatsApp • Instagram • Telegram • Messages • Email • More 💗</p></div>
+<br><div class="top-badge" style="position:static;display:inline-block;margin-top:10px">💕 It's a Date</div><br>
+<button class="back-btn" style="margin-top:15px" onclick="location.reload()">Create Another 💕</button>
+<p class="footer-text">Made with a little courage & lots of love 🌸</p>
+</section>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
